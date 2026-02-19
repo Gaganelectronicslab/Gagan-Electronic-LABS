@@ -826,3 +826,60 @@ footer {
   position: relative;
   z-index: 1;
 }
+/* =========================================
+   CONTACT PAGE – ANIMATED GRADIENT BACKGROUND
+========================================= */
+
+.contact-page {
+  background: linear-gradient(
+    -45deg,
+    #eef2ff,
+    #f8fafc,
+    #e0f2fe,
+    #f1f5f9
+  );
+  background-size: 400% 400%;
+  animation: contactGradient 12s ease infinite;
+}
+
+@keyframes contactGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* =========================================
+   CONTACT PAGE – FLOATING DECOR ELEMENTS
+========================================= */
+
+.contact-page::before,
+.contact-page::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  animation: floatBlob 8s ease-in-out infinite;
+}
+
+.contact-page::before {
+  top: -60px;
+  left: -60px;
+}
+
+.contact-page::after {
+  bottom: -60px;
+  right: -60px;
+  animation-delay: 3s;
+}
+
+.contact-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes floatBlob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
