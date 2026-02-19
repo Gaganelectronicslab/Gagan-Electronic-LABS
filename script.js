@@ -18,7 +18,7 @@ window.filterProjects = function (type) {
 };
 
 /* ======================================================
-   NAVBAR SHADOW (All Pages)
+   NAVBAR SHADOW
 ====================================================== */
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header");
@@ -29,44 +29,27 @@ window.addEventListener("scroll", () => {
 });
 
 /* ======================================================
-   DARK MODE (Optional)
+   PRICE COUNTER ANIMATION
 ====================================================== */
-const darkToggle = $("darkToggle");
-if (darkToggle) {
-  if (localStorage.theme === "dark") {
-    document.body.classList.add("dark");
-    darkToggle.textContent = "☀️";
+function animatePrice(el, from, to, duration = 400) {
+  if (!el) return;
+  const start = performance.now();
+
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    el.innerText = Math.round(from + (to - from) * progress);
+    if (progress < 1) requestAnimationFrame(step);
   }
 
-  darkToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    localStorage.theme =
-      document.body.classList.contains("dark") ? "dark" : "light";
-    darkToggle.textContent =
-      document.body.classList.contains("dark") ? "☀️" : "🌙";
-  });
+  requestAnimationFrame(step);
 }
 
 /* ======================================================
-   CONTACT FORM SUCCESS (Contact Page)
-====================================================== */
-const contactForm = $("contactForm");
-if (contactForm) {
-  contactForm.addEventListener("submit", () => {
-    setTimeout(() => {
-      const msg = document.querySelector(".success-message");
-      if (msg) msg.style.display = "block";
-      contactForm.reset();
-    }, 800);
-  });
-}
-
-/* ======================================================
-   CUSTOMIZE PAGE LOGIC (NO FILE UPLOAD)
+   CUSTOMIZE PAGE LOGIC (FINAL – GUARANTEED FIX)
 ====================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const customForm = $("customForm");
-  if (!customForm) return; // ✅ Only run on customize page
+  if (!customForm) return;
 
   const projectType = $("projectType");
   const gramsBox = $("gramsBox");
@@ -75,40 +58,76 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalCost = $("totalCost");
   const estimatedField = $("estimatedCostField");
 
-  /* ================= PRICE LOGIC ================= */
+  const driveInput = $("driveLinkInput");
+  const submitBtn = $("submitBtn");
+  const driveTick = $("driveTick");
+
+  /* ================= PROJECT TYPE ================= */
   window.handleProjectType = function () {
     const type = projectType.value;
+    const current = Number(totalCost.innerText) || 0;
 
     if (type === "3D Printing") {
       gramsBox.style.display = "flex";
       fixedCostBox.style.display = "none";
-      totalCost.innerText = "50";
+
+      animatePrice(totalCost, current, 50);
       estimatedField.value = "₹50 (Base Service Charge)";
-    } else if (type) {
+      gramsInput.value = "";
+    }
+    else if (type) {
       gramsBox.style.display = "none";
       fixedCostBox.style.display = "block";
-      totalCost.innerText = "1500";
+
+      animatePrice(totalCost, current, 1500);
       estimatedField.value = "₹1500 – ₹3000 (After Review)";
-    } else {
+    }
+    else {
       gramsBox.style.display = "none";
       fixedCostBox.style.display = "none";
-      totalCost.innerText = "0";
+
+      animatePrice(totalCost, current, 0);
       estimatedField.value = "₹0";
     }
   };
 
-  window.calculateCost = function () {
-    const grams = gramsInput.value || 0;
-    const cost = grams * 10 + 50;
-    totalCost.innerText = cost;
-    estimatedField.value = "₹" + cost;
-  };
+  /* ================= LIVE GRAMS PRICING ================= */
+  gramsInput.addEventListener("input", () => {
+    const grams = Number(gramsInput.value);
+    const current = Number(totalCost.innerText) || 50;
 
-  /* ================= FORM SUBMIT =================
-     (Formspree handles everything)
-  ================================================= */
-  customForm.addEventListener("submit", () => {
-    // No JS interception needed
-    // Let Formspree submit naturally
+    if (!grams || grams <= 0) {
+      animatePrice(totalCost, current, 50);
+      estimatedField.value = "₹50 (Base Service Charge)";
+      return;
+    }
+
+    const cost = grams * 10 + 50;
+    animatePrice(totalCost, current, cost);
+    estimatedField.value = "₹" + cost;
+  });
+
+  /* ================= DRIVE LINK VALIDATION ================= */
+  submitBtn.disabled = true;
+
+  const DRIVE_REGEX =
+    /^https?:\/\/drive\.google\.com\/(file\/d\/|drive\/folders\/).+/;
+
+  driveInput.addEventListener("input", () => {
+    if (DRIVE_REGEX.test(driveInput.value.trim())) {
+      driveInput.classList.add("drive-valid");
+      driveInput.classList.remove("drive-invalid");
+
+      driveTick.style.display = "block";
+      driveTick.play();
+
+      submitBtn.disabled = false;
+    } else {
+      driveInput.classList.remove("drive-valid");
+      driveInput.classList.add("drive-invalid");
+
+      driveTick.style.display = "none";
+      submitBtn.disabled = true;
+    }
   });
 });
