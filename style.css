@@ -883,3 +883,42 @@ footer {
   0%,100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
+/* =========================================
+   GLASSMORPHISM CARD HOVER (PREMIUM)
+========================================= */
+
+.customize-card,
+.contact-form-box,
+.project-card {
+  backdrop-filter: blur(0px);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    backdrop-filter 0.35s ease,
+    background 0.35s ease;
+}
+
+.customize-card:hover,
+.contact-form-box:hover,
+.project-card:hover {
+  backdrop-filter: blur(14px);
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.18);
+}
+/* =========================================
+   SCROLL-IN ANIMATION
+========================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
