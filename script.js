@@ -144,3 +144,31 @@ document.querySelectorAll(".filters button").forEach(btn => {
     btn.classList.add("active");
   });
 });
+/* =========================================
+   DRIVE LINK SUCCESS SOUND (SAFE)
+========================================= */
+(() => {
+  const driveInput = document.getElementById("driveLinkInput");
+  const successSound = document.getElementById("driveSuccessSound");
+
+  if (!driveInput || !successSound) return;
+
+  const DRIVE_REGEX =
+    /^https?:\/\/(drive\.google\.com)\/(file\/d\/|drive\/folders\/).+/;
+
+  let played = false;
+
+  driveInput.addEventListener("input", () => {
+    const value = driveInput.value.trim();
+
+    if (DRIVE_REGEX.test(value)) {
+      if (!played) {
+        successSound.currentTime = 0;
+        successSound.play().catch(() => {});
+        played = true;
+      }
+    } else {
+      played = false; // reset if link becomes invalid
+    }
+  });
+})();
