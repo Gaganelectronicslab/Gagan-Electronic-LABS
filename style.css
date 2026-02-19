@@ -567,3 +567,96 @@ body:hover .whatsapp::after {
     transform: translateY(50%) translateY(-6px);
   }
 }
+/* =========================================
+   PROJECT PAGE – PREMIUM ENHANCEMENTS
+========================================= */
+
+/* Smooth entrance */
+.project-card {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: projectFadeUp 0.6s ease forwards;
+}
+
+.project-card:nth-child(1) { animation-delay: 0.05s; }
+.project-card:nth-child(2) { animation-delay: 0.1s; }
+.project-card:nth-child(3) { animation-delay: 0.15s; }
+.project-card:nth-child(4) { animation-delay: 0.2s; }
+
+@keyframes projectFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover premium feel */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 30px 60px rgba(37,99,235,0.25);
+}
+
+/* Subtle hover border glow */
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  border: 2px solid transparent;
+  transition: 0.3s;
+}
+
+.project-card:hover::before {
+  border-color: #93c5fd;
+}
+
+/* View details micro CTA */
+.project-card::after {
+  content: "View Details →";
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2563eb;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: 0.3s ease;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   FILTER BUTTON ACTIVE STATE
+========================================= */
+
+.filters button.active {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  color: white;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.35);
+}
+
+/* =========================================
+   OPTIONAL – POPULAR BADGE (use class)
+========================================= */
+
+.project-card.popular::after {
+  content: "⭐ Popular";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #facc15;
+  color: #1f2937;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
