@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us | GAGAN ELECTRONIC LABS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- LOTTIE PLAYER -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>GAGAN ELECTRONIC LABS</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="customize.html">Customize</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button id="darkToggle">🌙</button>
+</header>
+
+<!-- CONTACT SECTION -->
+<section class="contact-page">
+
+  <!-- LEFT FORM -->
+  <div class="contact-form-box">
+    <h2>Contact Us</h2>
+    <p>Have a question or project idea? Let’s talk.</p>
+
+    <form
+      class="contact-form"
+      action="https://formspree.io/f/mvzbqqry"
+      method="POST"
+    >
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+
+      <button type="submit" class="btn full-btn">
+        Send Message
+      </button>
+    </form>
+
+    <div class="contact-info">
+      <p>📍 Hindupur – 515201</p>
+      <p>📧 gaganelectronicslab@gmail.com</p>
+      <p>📱 +91 63015 09299</p>
+    </div>
+  </div>
+
+  <!-- RIGHT ANIMATION (UPDATED LOTTIE) -->
+  <div class="contact-illustration lottie-box">
+    <lottie-player
+      src="https://assets10.lottiefiles.com/packages/lf20_tfb3estd.json"
+      background="transparent"
+      speed="1"
+      loop
+      autoplay>
+    </lottie-player>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2026 Gagan Electronic Labs. All Rights Reserved.
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/916301509299" class="whatsapp" target="_blank">💬</a>
+
+<script src="script.js"></script>
+</body>
+</html>
