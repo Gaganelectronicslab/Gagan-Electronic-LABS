@@ -18,6 +18,19 @@ window.filterProjects = function (type) {
 };
 
 /* ======================================================
+   PROJECT FILTER – ACTIVE BUTTON UX
+====================================================== */
+document.querySelectorAll(".filters button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document
+      .querySelectorAll(".filters button")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+  });
+});
+
+/* ======================================================
    NAVBAR SHADOW
 ====================================================== */
 window.addEventListener("scroll", () => {
@@ -45,7 +58,7 @@ function animatePrice(el, from, to, duration = 400) {
 }
 
 /* ======================================================
-   CUSTOMIZE PAGE LOGIC (FINAL – GUARANTEED FIX)
+   CUSTOMIZE PAGE LOGIC (FINAL – FIXED & CLEAN)
 ====================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const customForm = $("customForm");
@@ -59,8 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const estimatedField = $("estimatedCostField");
 
   const driveInput = $("driveLinkInput");
-  const submitBtn = $("submitBtn");
   const driveTick = $("driveTick");
+  const submitBtn = $("submitBtn");
+  const successSound = $("driveSuccessSound");
 
   /* ================= PROJECT TYPE ================= */
   window.handleProjectType = function () {
@@ -91,8 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  /* ================= LIVE GRAMS PRICING ================= */
+  /* ================= LIVE GRAMS PRICING (REAL FIX) ================= */
   gramsInput.addEventListener("input", () => {
+    if (projectType.value !== "3D Printing") return;
+
     const grams = Number(gramsInput.value);
     const current = Number(totalCost.innerText) || 50;
 
@@ -107,19 +123,29 @@ document.addEventListener("DOMContentLoaded", () => {
     estimatedField.value = "₹" + cost;
   });
 
-  /* ================= DRIVE LINK VALIDATION ================= */
+  /* ================= DRIVE LINK VALIDATION + TICK + SOUND ================= */
   submitBtn.disabled = true;
 
   const DRIVE_REGEX =
     /^https?:\/\/drive\.google\.com\/(file\/d\/|drive\/folders\/).+/;
 
+  let soundPlayed = false;
+
   driveInput.addEventListener("input", () => {
-    if (DRIVE_REGEX.test(driveInput.value.trim())) {
+    const value = driveInput.value.trim();
+
+    if (DRIVE_REGEX.test(value)) {
       driveInput.classList.add("drive-valid");
       driveInput.classList.remove("drive-invalid");
 
       driveTick.style.display = "block";
       driveTick.play();
+
+      if (!soundPlayed && successSound) {
+        successSound.currentTime = 0;
+        successSound.play().catch(() => {});
+        soundPlayed = true;
+      }
 
       submitBtn.disabled = false;
     } else {
@@ -128,47 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       driveTick.style.display = "none";
       submitBtn.disabled = true;
+      soundPlayed = false;
     }
   });
 });
-/* =========================================
-   PROJECT FILTER – ACTIVE BUTTON UX
-========================================= */
-
-document.querySelectorAll(".filters button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document
-      .querySelectorAll(".filters button")
-      .forEach(b => b.classList.remove("active"));
-
-    btn.classList.add("active");
-  });
-});
-/* =========================================
-   DRIVE LINK SUCCESS SOUND (SAFE)
-========================================= */
-(() => {
-  const driveInput = document.getElementById("driveLinkInput");
-  const successSound = document.getElementById("driveSuccessSound");
-
-  if (!driveInput || !successSound) return;
-
-  const DRIVE_REGEX =
-    /^https?:\/\/(drive\.google\.com)\/(file\/d\/|drive\/folders\/).+/;
-
-  let played = false;
-
-  driveInput.addEventListener("input", () => {
-    const value = driveInput.value.trim();
-
-    if (DRIVE_REGEX.test(value)) {
-      if (!played) {
-        successSound.currentTime = 0;
-        successSound.play().catch(() => {});
-        played = true;
-      }
-    } else {
-      played = false; // reset if link becomes invalid
-    }
-  });
-})();
