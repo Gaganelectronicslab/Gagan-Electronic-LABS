@@ -688,3 +688,44 @@ body:hover .whatsapp::after {
   border-radius: 999px;
   background: linear-gradient(90deg, #2563eb, #93c5fd);
 }
+/* ==============================
+   MOBILE RESPONSIVE OVERRIDES
+   ============================== */
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  * {
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Stack layouts */
+  .row, .container, .wrapper {
+    flex-direction: column !important;
+  }
+
+  /* Text sizing */
+  p, li, a {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  h1 { font-size: 24px; }
+  h2 { font-size: 20px; }
+  h3 { font-size: 18px; }
+
+}
