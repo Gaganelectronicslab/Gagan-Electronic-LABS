@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instant Cost Estimator | GAGAN ELECTRONIC LABS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- LOTTIE -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- DRIVE LINK UX (ONLY UI STYLES) -->
+  <style>
+    .drive-link-box {
+      position: relative;
+    }
+
+    .drive-link-box input {
+      padding-right: 50px;
+    }
+
+    .drive-tick {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      display: none;
+    }
+
+    .drive-valid {
+      border-color: #22c55e !important;
+      background: #f0fdf4;
+    }
+
+    .drive-invalid {
+      border-color: #ef4444 !important;
+      background: #fef2f2;
+    }
+
+    button[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <h1>GAGAN ELECTRONIC LABS</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="customize.html">Customize</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- ================= CUSTOMIZE SECTION ================= -->
+<section class="customize-section">
+
+  <div class="customize-card">
+    <h2>Instant Project Cost Estimator</h2>
+    <p class="subtitle">Get a quick estimate before submitting your project.</p>
+
+    <!-- ✅ FIXED: ID ADDED -->
+    <form
+      id="customForm"
+      class="custom-form"
+      action="https://formspree.io/f/mqedljpp"
+      method="POST"
+    >
+
+      <!-- EMAIL -->
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required
+      >
+
+      <!-- PROJECT TYPE -->
+      <select
+        id="projectType"
+        name="project_type"
+        onchange="handleProjectType()"
+        required
+      >
+        <option value="">Select Project Type</option>
+        <option value="3D Printing">3D Printing</option>
+        <option value="Electronics / IoT">Electronics / IoT</option>
+        <option value="Robotics">Robotics</option>
+        <option value="LoRa / EV Systems">LoRa / EV Systems</option>
+        <option value="MATLAB / Simulation">MATLAB / Simulation</option>
+      </select>
+
+      <!-- ================= GOOGLE DRIVE ================= -->
+      <div class="upload-box polished-upload">
+        <label class="upload-label">Upload Design Files (Google Drive)</label>
+
+        <p class="upload-hint">
+          Step 1: Upload STL / STEP / PDF to Google Drive
+        </p>
+
+        <a
+          href="https://drive.google.com/drive/folders/12t7OI9lFH_UKXBDt_oSn6kOFQ3tB9Kg-?usp=sharing"
+          target="_blank"
+          class="btn upload-drive-btn"
+        >
+          📤 Upload to Google Drive
+        </a>
+
+        <p class="upload-hint">
+          Step 2: Paste the Google Drive link below
+        </p>
+
+        <div class="drive-link-box">
+          <input
+            type="url"
+            id="driveLinkInput"
+            name="drive_links"
+            placeholder="https://drive.google.com/..."
+            required
+          >
+
+          <!-- ✅ SMALL LOTTIE TICK -->
+          <lottie-player
+            id="driveTick"
+            class="drive-tick"
+            src="https://assets1.lottiefiles.com/packages/lf20_jbrw3hcz.json"
+            background="transparent"
+            speed="1">
+          </lottie-player>
+        </div>
+
+        <small class="upload-hint">
+          Paste a valid Google Drive file or folder link
+        </small>
+      </div>
+
+      <!-- ================= 3D PRINT ================= -->
+      <div class="calc-box" id="gramsBox" style="display:none;">
+        <input
+          type="number"
+          id="grams"
+          min="1"
+          step="1"
+          placeholder="3D Print Weight (grams)"
+        >
+        <span>₹10 / gram + ₹50 service charge</span>
+      </div>
+
+      <!-- FIXED COST -->
+      <div class="fixed-cost" id="fixedCostBox" style="display:none;">
+        <strong>Average Project Cost</strong>
+        <p>₹1500 – ₹3000 (final cost after review)</p>
+      </div>
+
+      <!-- PRICE -->
+      <div class="price-box">
+        Estimated Cost:
+        <span>₹<span id="totalCost">0</span></span>
+      </div>
+
+      <!-- HIDDEN FIELD -->
+      <input
+        type="hidden"
+        name="estimated_cost"
+        id="estimatedCostField"
+        value="₹0"
+      >
+
+      <!-- ✅ FIXED BUTTON -->
+      <button
+        type="submit"
+        class="btn full-btn"
+        id="submitBtn"
+        disabled
+      >
+        Submit Project Request
+      </button>
+
+    </form>
+  </div>
+
+  <!-- RIGHT LOTTIE -->
+  <div class="contact-illustration">
+    <lottie-player
+      src="https://assets8.lottiefiles.com/packages/lf20_0yfsb3a1.json"
+      background="transparent"
+      speed="1"
+      loop
+      autoplay>
+    </lottie-player>
+  </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  © 2026 Gagan Electronic Labs. All Rights Reserved.
+</footer>
+
+<a href="https://wa.me/916301509299" class="whatsapp" target="_blank">💬</a>
+
+<!-- ✅ ONLY ONE SCRIPT -->
+<script src="script.js"></script>
+
+</body>
+</html>
