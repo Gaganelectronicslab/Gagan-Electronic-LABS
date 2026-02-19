@@ -131,3 +131,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+/* =========================================
+   PROJECT FILTER – ACTIVE BUTTON UX
+========================================= */
+
+document.querySelectorAll(".filters button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document
+      .querySelectorAll(".filters button")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+  });
+});
