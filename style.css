@@ -688,6 +688,82 @@ body:hover .whatsapp::after {
   border-radius: 999px;
   background: linear-gradient(90deg, #2563eb, #93c5fd);
 }
+/* =========================================
+   PROJECTS – ANIMATED BACKGROUND GLOW
+   (APPEND ONLY – SAFE)
+========================================= */
+.projects-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(37,99,235,0.12), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(147,197,253,0.15), transparent 45%);
+  animation: bgFloat 14s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+.projects-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bgFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  100% {
+    transform: translateY(-40px) translateX(30px);
+  }
+}
+/* =========================================
+   FLOATING TECH PARTICLES
+========================================= */
+.projects-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(37,99,235,0.15) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: particleMove 30s linear infinite;
+  z-index: 0;
+}
+
+@keyframes particleMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 400px 400px;
+  }
+}
+/* =========================================
+   DIAGONAL LIGHT SWEEP
+========================================= */
+.projects-page::before {
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0.04),
+      rgba(37,99,235,0.12),
+      rgba(255,255,255,0.04)
+    );
+  background-size: 300% 300%;
+  animation: lightSweep 18s ease infinite;
+}
+
+@keyframes lightSweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ==============================
    MOBILE RESPONSIVE OVERRIDES
    ============================== */
