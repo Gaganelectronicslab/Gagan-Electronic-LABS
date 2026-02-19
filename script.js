@@ -158,3 +158,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+/* =========================================
+   SCROLL-IN REVEAL (SAFE)
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const revealElements = document.querySelectorAll(
+    ".project-card, .customize-card, .contact-form-box"
+  );
+
+  revealElements.forEach(el => el.classList.add("reveal"));
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealElements.forEach(el => observer.observe(el));
+});
